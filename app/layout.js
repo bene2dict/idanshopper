@@ -2,7 +2,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
 import SettingsProvider from "@/context/SettingsContext";
+import GlobalProvider from "@/context/GlobalContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +18,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <SettingsProvider>
-          <div className="flex-1">{children}</div>
-        </SettingsProvider>
-
+        <GlobalProvider>
+          <SettingsProvider>
+            <div className="flex-1 px-6 md:px-20 py-24">{children}</div>
+          </SettingsProvider>
+        </GlobalProvider>
         <Footer />
       </body>
     </html>

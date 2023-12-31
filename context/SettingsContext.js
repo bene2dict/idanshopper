@@ -7,6 +7,7 @@ export const SettingsContext = createContext();
 const SettingsProvider = ({ children }) => {
   const [focused, setFocused] = useState("earn");
   const [status, setStatus] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleMenu = (text) => {
     setFocused(text);

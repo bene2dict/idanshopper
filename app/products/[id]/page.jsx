@@ -1,4 +1,5 @@
 // import Modal from "@/components/Modal";
+import Modal from "@/components/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
@@ -14,9 +15,9 @@ const ProductDetails = async () => {
   const product = false;
 
   return (
-    <div className="product-container">
+    <div className="product-container flex flex-col gap-16 flex-wrap px-6 md:px-20 py-24">
       <div className="flex gap-28 xl:flex-row flex-col">
-        <div className="product-image">
+        <div className="product-image flex-grow xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
           <Image
             src={product.image || "/assets/images/hero-1.svg"}
             alt={product.title || "title"}
@@ -47,7 +48,7 @@ const ProductDetails = async () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="product-hearts">
+              <div className="product-hearts flex items-center gap-2 px-3 py-2 bg-[#FFF0F0] rounded-10">
                 <Image
                   src="/assets/icons/red-heart.svg"
                   alt="heart"
@@ -80,7 +81,7 @@ const ProductDetails = async () => {
             </div>
           </div>
 
-          <div className="product-info">
+          <div className="product-info flex items-center flex-wrap gap-10 py-6 border-y border-y-[#E4E4E4]">
             <div className="flex flex-col gap-2">
               <p className="text-[34px] text-secondary font-bold">
                 5000
@@ -94,7 +95,7 @@ const ProductDetails = async () => {
 
             <div className="flex flex-col gap-4">
               <div className="flex gap-3">
-                <div className="product-stars">
+                <div className="product-stars flex items-center gap-2 px-3 py-2 bg-[#FBF3EA] rounded-[27px]">
                   <Image
                     src="/assets/icons/star.svg"
                     alt="star"
@@ -106,7 +107,7 @@ const ProductDetails = async () => {
                   </p>
                 </div>
 
-                <div className="product-reviews">
+                <div className="product-reviews flex items-center gap-2 px-3 py-2 bg-white-200 rounded-[27px]">
                   <Image
                     src="/assets/icons/comment.svg"
                     alt="comment"
@@ -155,7 +156,7 @@ const ProductDetails = async () => {
             </div>
           </div>
 
-          {/* <Modal productId={id} /> */}
+          <Modal />
         </div>
       </div>
 
@@ -175,7 +176,7 @@ const ProductDetails = async () => {
           </div>
         </div>
 
-        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
+        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px] py-4 px-4 bg-secondary hover:bg-opacity-70 rounded-[30px] text-white text-lg font-semibold ">
           <Image
             src="/assets/icons/bag.svg"
             alt="check"

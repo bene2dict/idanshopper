@@ -12,9 +12,11 @@ import { SettingsContext } from "@/context/SettingsContext";
 const SettingsLayout = ({ children }) => {
   const { focused, toggleMenu } = useContext(SettingsContext);
 
+  console.log(focused && focused);
+
   const text = "Browse searched products";
   return (
-    <main className="flex flex-col lg:flex-row min-h-screen px-2 lg:px-6 md:px-20 py-10 text-secondary bg-gray-50">
+    <main className="flex flex-col lg:flex-row min-h-screen text-secondary ">
       <aside className="profile-menu flex-none w-full lg:w-[20rem] relative">
         <ul className="settings-options-list relative shadow-sm bg-white  flex flex-col">
           <li

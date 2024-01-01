@@ -5,15 +5,25 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { GlobalContext } from "@/context/GlobalContext";
 
-const ErrorModal = () => {
-  const [error, setError] = useState([]);
+const Modal = () => {
+  let [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [email, setEmail] = useState("");
 
-  const { isOpen, setIsOpen } = useContext(GlobalContext);
+  const { error } = useContext(GlobalContext);
 
   const closeModal = () => setIsOpen(false);
 
   return (
     <>
+      {/* <button
+        type="button"
+        className="btn  px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
+        onClick={openModal}
+      >
+        Track
+      </button> */}
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -47,9 +57,9 @@ const ErrorModal = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="dialog-content p-6  bg-white inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform  shadow-xl rounded-2xl  border-2 border-primary ">
-                <div className="flex flex-col gap-5">
-                  <div className="flex justify-between items-center">
+              <div className="dialog-content p-6  bg-white inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform  shadow-xl rounded-2xl">
+                <div className="flex flex-col">
+                  <div className="flex justify-between">
                     <div className="p-3 border border-gray-200 rounded-10">
                       <Image
                         src="/assets/icons/logo.svg"
@@ -58,10 +68,6 @@ const ErrorModal = () => {
                         height={28}
                       />
                     </div>
-
-                    <h1 className="text-primary font-bold text-xl">
-                      Oops Error !
-                    </h1>
 
                     <Image
                       src="/assets/icons/x-close.svg"
@@ -74,28 +80,48 @@ const ErrorModal = () => {
                   </div>
 
                   <h4 className="dialog-head_text text-secondary text-lg leading-[24px] font-semibold mt-4">
-                    It appears you entered an invalid link, please enter a valid
-                    link. <br />
+                    Stay updated with product pricing alerts right in your
+                    inbox!
                   </h4>
 
-                  <p className="text-sm text-primary mt-2">
-                    A valid link is a link copied from Jumia or Konga
+                  <p className="text-sm text-gray-600 mt-2">
+                    Never miss a bargain again with our timely alerts!
                   </p>
-
-                  <span className="text-sm text-secondary p-2 bg-slate-100">
-                    https://www.jumia.com.ng/sony-playstation-5-console-standard-edition-257094579.html
-                  </span>
-
-                  <span className="w-full flex flex-row gap-3 items-center text-sm">
-                    <hr className="w-full h-2" />
-                    OR
-                    <hr className="w-full h-2" />
-                  </span>
-
-                  <span className="text-sm text-secondary p-2 bg-slate-100">
-                    https://www.konga.com/product/sony-playstation-5-digital-edition-5842154{" "}
-                  </span>
                 </div>
+
+                <form className="flex flex-col mt-5">
+                  <label
+                    htmlFor="email"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Email address
+                  </label>
+                  <div className="dialog-input_container px-5 py-3 mt-3 flex items-center gap-2 border border-gray-300 rounded-[27px]">
+                    <Image
+                      src="/assets/icons/mail.svg"
+                      alt="mail"
+                      width={18}
+                      height={18}
+                    />
+
+                    <input
+                      required
+                      type="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email address"
+                      className="dialog-input flex-1 pl-1 border-none text-gray-500 text-base focus:outline-none border border-gray-300 rounded-[27px] shadow-xs"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="dialog-btn px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
+                  >
+                    {isSubmitting ? "Submitting..." : "Track"}
+                  </button>
+                </form>
               </div>
             </Transition.Child>
           </div>
@@ -105,4 +131,4 @@ const ErrorModal = () => {
   );
 };
 
-export default ErrorModal;
+export default Modal;

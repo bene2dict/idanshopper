@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import isValidUrl from "@/lib/actions/localActions/isValidUrl";
 import { GlobalContext } from "@/context/GlobalContext";
 import ErrorModal from "./ErrorModal";
+import sendUrlToScraper from "@/lib/actions/localActions/sendUrlToScraper";
 
 const Searchbar = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,9 +26,11 @@ const Searchbar = () => {
     });
 
     const data = await response.json();
-    // console.log(response);
-
     console.log(data);
+
+    if (data.success) {
+      sendUrlToScraper(data.url);
+    }
   };
 
   return (

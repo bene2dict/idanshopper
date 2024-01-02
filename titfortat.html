@@ -1,0 +1,61 @@
+// Select the image element
+const imgElement = $("._7f96a_3PgMp._7f231_24Ywf picture img.lazyloaded"); // Adjust selector if needed
+
+// Extract the image URL
+const imageUrl = imgElement.click();
+
+// .attr("src");
+
+// Save the image to a variable
+const imageBuffer = await page.goto(imageUrl, {
+waitUntil: "networkidle0",
+});
+const image = await imageBuffer.buffer();
+
+const title = $("._24849_2Ymhg h4").text().trim();
+
+// the product code
+const productCode = $("._97fc0_3W515 span").text().trim();
+
+// the brand
+const brand = $("._71bb8_13C6j a").text().trim();
+
+// the current price
+const currentPrice = $("._678e4_e6nqh").text().trim();
+
+// the old price
+const oldPrice = $("._10344_3PAla").text().trim();
+
+// seller phone number)
+const sellerPhoneNumber = $("._0a08a_3czMG").text().trim();
+
+// Merchant name
+const merchantName = $("div#product-seller-band a._70f3d_3BLwX").text();
+
+console.log("Image src:", image);
+console.log("Title:", title);
+console.log("Product Code:", productCode);
+console.log("Brand:", brand);
+console.log("Current Price:", currentPrice);
+console.log("Old Price:", oldPrice);
+console.log("Merchant: ", merchantName);
+console.log("Seller Phone Number:", sellerPhoneNumber);
+
+const product = [];
+
+const item = {
+imageSrc,
+title,
+brand,
+productCode,
+sellerPhoneNumber,
+currentPrice,
+oldPrice,
+};
+
+const data = product.push(item);
+console.log(data);
+
+await browser.close();
+
+// return res.json({ product });

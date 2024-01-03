@@ -7,80 +7,98 @@ export async function POST(req, res) {
   const { url } = data;
   console.log("Starting Scraping", url);
 
+  let browser;
   try {
-    let browser;
     browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
     await page.goto(url);
-
-    await page.waitForSelector(".c6dfe_HidJc", { timeout: 7000 });
+    await page.setViewport({ width: 1920, height: 1080 });
 
     const html = await page.content();
 
     const $ = cheerio.load(html);
 
-    const imageDivParent = $(
-      "div.d9549_IlL3h div._8f9c3_230YI._47f1e_1dZrT div.bf1a2_3kz7s"
+    const parentDiv = $(
+      "section.col12.-df.-d-co >  div.row.card._no-g.-fg1.-pas"
     );
 
-    const picture = imageDivParent
-      .find("div._7f96a_3PgMp._7f231_24Ywf picture img")
-      .attr("data-src");
+    const sellerInfoParent = $("div.col4");
 
-    const textDivParent = $("div._680e2_KPkEz div.aadf4_2-w0o");
-
-    const title = textDivParent.find("h4._24849_2Ymhg").text();
-
-    const productCode = textDivParent
-      .find("form div._31c33_NSdat div._97fc0_3W515.b50e0_1HOLM span")
+    const sellerName = sellerInfoParent
+      .find("div.-pts section.card div.-hr.-pas > p.-m.-pbs")
       .text();
 
-    const brandName = textDivParent
-      .find("form div._31c33_NSdat div._71bb8_13C6j a span")
+    await page.waitForSelector("div#imgs a img[data-src]", {
+      visible: true,
+    });
+
+    const images = await page.evaluate(() => {
+      const imageElements = document.querySelectorAll(
+        "div#imgs a img[data-src]"
+      ); // Use the selector from `image`
+      return Array.from(imageElements).map((img) => img.dataset.src);
+    });
+
+    const textDivParent = parentDiv.find("div.col10");
+
+    const title = textDivParent
+      .find("div.-df.-j-bet > div.-pls.-prl h1.-fs20.-pts.-pbxs")
       .text();
 
-    const priceParentElement = textDivParent.find(
-      "div._3924b_1USC3 div._678e4_e6nqh"
-    );
+    const brand = textDivParent.find("div.-phs > div.-pvxs").text();
 
-    const priceElement = textDivParent
-      .find("div._3924b_1USC3 div._678e4_e6nqh")
+    const priceParentElement = textDivParent.find("div.-hr.-mtxs.-pvs");
+
+    const currentPrice = priceParentElement
+      .find("div.df.-i-ctr.-fw-w > span")
       .text();
 
-    const price_symbol = priceParentElement.find("span").text();
-    let priceSymbol = price_symbol.length;
-
-    const checkSymbol = priceSymbol.toString().includes("₦");
-    if (checkSymbol) {
-      priceSymbol = "₦";
-    }
-
-    // start from here
-    let price = priceElement.split("₦").text();
-    price = price[1];
-
-    const merchantNumber = textDivParent
-      .find("div._36c13_Xgo4y div.c291c_1zPM7 a#phoneNumberDisplay")
+    const oldPrice = priceParentElement
+      .find(
+        "div.df.-i-ctr.-fw-w > div.-dif.-i-ctr > span.-tal.-gy5.-lthr.-fs16.-pvxs"
+      )
       .text();
 
-    const merchantName = $(
-      "div.b3a55_3tPmA#product-seller-band div._835ed_2kqSg a._70f3d_3BLwX"
-    ).text();
+    const priceChangePercent = priceParentElement
+      .find("div.df.-i-ctr.-fw-w span.bdg._dsct._dyn.-mls")
+      .text();
 
-    console.log("picture", picture);
+    const product = [];
+
+    console.log("images", images);
     console.log("title", title);
-    console.log("product code", productCode);
-    console.log("brand name", brandName);
-    console.log(priceSymbol);
-    console.log("price", price);
-    console.log("merchant name", merchantName);
-    console.log("merchant number", merchantNumber);
+    console.log("brand name", brand);
+    console.log("current Price", currentPrice);
+    console.log("Old Price", oldPrice);
+    console.log("price percentage change", priceChangePercent);
 
-    await browser.close();
+    // product.push(images);
+
+    const items = {
+      images,
+      title,
+      brand,
+      sellerName,
+      currentPrice,
+      oldPrice,
+      priceChangePercent,
+    };
+
+    product.push(items);
+
+    console.log("items ", items);
+
+    return NextResponse.json(product);
   } catch (error) {
     console.log("error", error);
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
   }
 }
 
 // https://www.konga.com/product/sony-playstation-5-digital-edition-5842154
+
+// https://www.jumia.com.ng/sony-playstation-5-console-standard-edition-257094579.html

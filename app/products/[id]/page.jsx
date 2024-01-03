@@ -1,5 +1,5 @@
 // import Modal from "@/components/Modal";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";

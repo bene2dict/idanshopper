@@ -1,15 +1,16 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
+import { GlobalContext } from "@/context/GlobalContext";
 
 const Modal = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [email, setEmail] = useState("");
 
-  const openModal = () => setIsOpen(true);
+  useEffect(() => {});
+
+  const { openModal } = useContext(GlobalContext);
 
   const closeModal = () => setIsOpen(false);
 
@@ -87,40 +88,6 @@ const Modal = () => {
                     Never miss a bargain again with our timely alerts!
                   </p>
                 </div>
-
-                <form className="flex flex-col mt-5">
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Email address
-                  </label>
-                  <div className="dialog-input_container px-5 py-3 mt-3 flex items-center gap-2 border border-gray-300 rounded-[27px]">
-                    <Image
-                      src="/assets/icons/mail.svg"
-                      alt="mail"
-                      width={18}
-                      height={18}
-                    />
-
-                    <input
-                      required
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address"
-                      className="dialog-input flex-1 pl-1 border-none text-gray-500 text-base focus:outline-none border border-gray-300 rounded-[27px] shadow-xs"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="dialog-btn px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
-                  >
-                    {isSubmitting ? "Submitting..." : "Track"}
-                  </button>
-                </form>
               </div>
             </Transition.Child>
           </div>

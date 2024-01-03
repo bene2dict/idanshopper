@@ -3,7 +3,7 @@ import Searchbar from "@/components/Searchbar";
 import Image from "next/image";
 // import { getAllProducts } from "@/lib/actions";
 import ProductCard from "@/components/ProductCard";
-import ErrorModal from "@/components/ErrorModal";
+import ErrorModal from "@/components/modals/ErrorModal";
 
 const Home = async () => {
   // const allProducts = await getAllProducts();

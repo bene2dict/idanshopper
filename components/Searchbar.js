@@ -4,14 +4,19 @@ import { useContext, useState } from "react";
 
 import isValidUrl from "@/lib/actions/localActions/isValidUrl";
 import { GlobalContext } from "@/context/GlobalContext";
-import ErrorModal from "./ErrorModal";
+import ErrorModal from "./modals/ErrorModal";
 import sendUrlToScraper from "@/lib/actions/localActions/sendUrlToScraper";
+import SearchedModal from "./modals/SearchedModal";
+
+import { ToastContainer, toast } from "react-toastify";
+import { Toast } from "./modals/Toast";
 
 const Searchbar = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchPrompt, setSearchPrompt] = useState("");
 
-  const { openModal, error, setError } = useContext(GlobalContext);
+  const { openModal, error, product, setProduct, setError } =
+    useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +30,42 @@ const Searchbar = () => {
       body: JSON.stringify({ url: searchPrompt }),
     });
 
-    const data = await response.json();
-    console.log(data);
-
-    if (data.success) {
-      sendUrlToScraper(data.url);
+    if (!response.ok) {
+      console.log("failed toast");
+      toast.error("Failed to validate link, You have entered an invalid link");
     }
+
+    const data_url = await response.json();
+    console.log(data_url);
+
+    toast("Getting product data...");
+    const res = await sendUrlToScraper(data_url.url);
+
+    if (!res) {
+      return toast.error("Failed to get any product");
+    }
+
+    setProduct(res);
+    toast.success("We have a product for you");
+    console.log("Response data", res);
+
+    if (!res.ok) {
+      toast("Failed to get product data");
+      setError(true);
+    }
+
+    const data = await res;
+    toast("Got product data successfully");
+    console.log("searchbar: ", data);
+
+    if (data.length > 0) {
+      setProduct(data);
+    }
+
+    console.log(res.json());
   };
+
+  console.log(product && product);
 
   return (
     <>
@@ -53,7 +87,7 @@ const Searchbar = () => {
         </button>
       </form>
 
-      <ErrorModal />
+      <SearchedModal product={product && product} />
     </>
   );
 };

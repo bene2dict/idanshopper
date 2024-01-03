@@ -18,6 +18,12 @@ const GlobalProvider = ({ children }) => {
     setIsOpen(true);
   };
 
+  function calculateDiscount(currentPrice, slashedPrice) {
+    const discountAmount = slashedPrice - currentPrice;
+    const discountPercentage = (discountAmount / slashedPrice) * 100;
+    return discountPercentage;
+  }
+
   const value = {
     isLoading,
     isOpen,
@@ -28,6 +34,7 @@ const GlobalProvider = ({ children }) => {
     setIsOpen,
     setIsLoading,
     openModal,
+    calculateDiscount,
   };
 
   return (

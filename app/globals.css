@@ -98,3 +98,34 @@
     width: 100%;
   }
 }
+
+
+/* SEARCHEDPRODUCT MODAL */
+
+/* Slide-in animations */
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Apply slide-in animations to respective components */
+.slide-in-left {
+  animation: slideFromLeft 0.5s forwards;
+}
+
+.slide-in-right {
+  animation: slideFromRight 0.5s forwards;
+}

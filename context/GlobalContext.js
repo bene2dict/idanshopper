@@ -13,6 +13,11 @@ const GlobalProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const [product, setProduct] = useState([]);
+  const [activeTabs, setActiveTabs] = useState("jumia");
+
+  const handleTabs = (tabName) => {
+    setActiveTabs(tabName);
+  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -29,6 +34,9 @@ const GlobalProvider = ({ children }) => {
     isOpen,
     error,
     product,
+    activeTabs,
+    setActiveTabs,
+    handleTabs,
     setProduct,
     setError,
     setIsOpen,

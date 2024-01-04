@@ -15,7 +15,9 @@
 
 # production
 /build
-/titfortat.html
+
+# file
+titfortat.html
 
 # misc
 .DS_Store

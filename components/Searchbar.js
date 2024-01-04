@@ -2,14 +2,11 @@
 
 import { useContext, useState } from "react";
 
-import isValidUrl from "@/lib/actions/localActions/isValidUrl";
 import { GlobalContext } from "@/context/GlobalContext";
-import ErrorModal from "./modals/ErrorModal";
 import sendUrlToScraper from "@/lib/actions/localActions/sendUrlToScraper";
 import SearchedModal from "./modals/SearchedModal";
 
-import { ToastContainer, toast } from "react-toastify";
-import { Toast } from "./modals/Toast";
+// import { Toast } from "./modals/Toast";
 
 const Searchbar = () => {
   const [isLoading, setIsLoading] = useState(false);

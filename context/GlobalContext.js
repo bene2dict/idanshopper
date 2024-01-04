@@ -1,9 +1,9 @@
 "use client";
 
-import { CustomToast } from "@/components/Searchbar";
+// import { CustomToast } from "@/components/Searchbar";
 import React, { createContext, useState } from "react";
 
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const GlobalContext = createContext();

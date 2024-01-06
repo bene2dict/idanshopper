@@ -18,6 +18,17 @@ const Searchbar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const jumia_link = searchPrompt.includes("jumia");
+    const konga_link = searchPrompt.includes("konga");
+
+    if (jumia_link) {
+      console.log("jumia link");
+    } else if (konga_link) {
+      console.log("konga link");
+    } else {
+      console.log("generic");
+    }
+
     console.log("loading", isLoading);
     const response = await fetch(`/api/validate-url/`, {
       method: "POST",
@@ -29,30 +40,30 @@ const Searchbar = () => {
 
     if (!response.ok) {
       console.log("failed toast");
-      toast.error("Failed to validate link, You have entered an invalid link");
+      // toast.error("Failed to validate link, You have entered an invalid link");
     }
 
     const data_url = await response.json();
     console.log(data_url);
 
-    toast("Getting product data...");
+    // toast("Getting product data...");
     const res = await sendUrlToScraper(data_url.url);
 
     if (!res) {
-      return toast.error("Failed to get any product");
+      // return toast.error("Failed to get any product");
     }
 
     setProduct(res);
-    toast.success("We have a product for you");
+    // toast.success("We have a product for you");
     console.log("Response data", res);
 
     if (!res.ok) {
-      toast("Failed to get product data");
+      // toast("Failed to get product data");
       setError(true);
     }
 
     const data = await res;
-    toast("Got product data successfully");
+    // toast("Got product data successfully");
     console.log("searchbar: ", data);
 
     if (data.length > 0) {

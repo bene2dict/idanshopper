@@ -22,7 +22,7 @@ const SearchedModal = () => {
     console.log(activeTabs);
   }, [activeTabs]);
 
-  console.log("active Tabs searchedModal: ", activeTabs);
+  // console.log("active Tabs searchedModal: ", activeTabs);
 
   const openModal = () => setIsOpen(true);
 

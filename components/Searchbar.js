@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { GlobalContext } from "@/context/GlobalContext";
 import sendUrlToScraper from "@/lib/actions/localActions/sendUrlToScraper";
 import SearchedModal from "./modals/SearchedModal";
+import checkLink from "@/lib/actions/localActions/checkLink";
 
 // import { Toast } from "./modals/Toast";
 
@@ -18,16 +19,9 @@ const Searchbar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const jumia_link = searchPrompt.includes("jumia");
-    const konga_link = searchPrompt.includes("konga");
+    const linkType = checkLink(searchPrompt);
 
-    if (jumia_link) {
-      console.log("jumia link");
-    } else if (konga_link) {
-      console.log("konga link");
-    } else {
-      console.log("generic");
-    }
+    // console.log(linkType);
 
     console.log("loading", isLoading);
     const response = await fetch(`/api/validate-url/`, {
@@ -47,7 +41,7 @@ const Searchbar = () => {
     console.log(data_url);
 
     // toast("Getting product data...");
-    const res = await sendUrlToScraper(data_url.url);
+    const res = await sendUrlToScraper(data_url.url, linkType.message);
 
     if (!res) {
       // return toast.error("Failed to get any product");

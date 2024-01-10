@@ -9,7 +9,7 @@ const ProductCard = () => {
       // href={`/products/${product._id}`}
       className="product-card w-full flex-1 flex flex-col gap-4 rounded-md shadow-sm hover:shadow-md"
     >
-      <div className="product-card_img-container p-7">
+      <div className="product-card_img-container p-5">
         <div className="product-card_img-container_inner">
           <Image
             src="/assets/images/hero-3.svg"
@@ -17,7 +17,7 @@ const ProductCard = () => {
             alt="Hero images"
             width={200}
             height={200}
-            className="product-card_img flex-1 relative flex flex-col gap-5 p-2 rounded-t-md bg-gray-100 max-h-[250px] object-contain w-full h-full bg-transparent"
+            className="product-card_img flex-1 relative flex flex-col gap-5 rounded-t-md bg-gray-100 max-h-[250px] object-contain w-full h-full bg-transparent"
           />
         </div>
       </div>

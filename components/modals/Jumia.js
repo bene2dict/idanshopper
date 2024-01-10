@@ -4,6 +4,10 @@ import Image from "next/image";
 import { GlobalContext } from "@/context/GlobalContext";
 import Link from "next/link";
 
+import { LuBadgePercent } from "react-icons/lu";
+import { IoMdPricetags } from "react-icons/io";
+import { GiPriceTag } from "react-icons/gi";
+
 const Jumia = ({ product }) => {
   const { activeTabs } = useContext(GlobalContext);
 
@@ -18,14 +22,15 @@ const Jumia = ({ product }) => {
     url,
   } = product[0];
   console.log("Title: ", title);
+  console.log(images.length);
 
   console.log("Inside jumia: ", activeTabs);
   return (
     <article className={`jumia-product slide-in-left my-3  `}>
-      <div className="searched-container flex flex-col lg:flex-row gap-3">
-        <div className="product-image flex-grow flex justify-center items-center lg:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
+      <div className="searched-container flex flex-col xl:flex-row gap-3">
+        <div className="product-image flex-grow flex justify-center items-center xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
           <Image
-            src={images[0]}
+            src={images.length > 0 ? images[0] : images}
             alt={"title"}
             width={580}
             height={400}
@@ -33,19 +38,19 @@ const Jumia = ({ product }) => {
           />
         </div>
 
-        <div className="description-container lg:max-w-[50%] flex flex-col gap-5 m-0">
+        <div className="description-container xl:max-w-[50%] flex flex-col gap-5 m-0">
           <div className="flex flex-col gap-5">
             <h1 className="text-2xl lg:text-4xl font-semibold">{title}</h1>
 
             <span className="text-md font-normal text-primary-green">
               {brand} |
               <Link href={url} target="_blank" className="text-primary ml-1">
-                Get product from Jumia
+                Buy product from Jumia
               </Link>
             </span>
 
-            <div className="price-amount text-3xl font-semibold flex flex-col-reverse md:flex-row gap-5 md:gap-0 justify-between items-center border-t-2 border-b-2 py-6">
-              <div className="price flex flex-row gap-10 md:gap-0  md:flex-col -ml-[3rem] md:ml-0">
+            <div className="price-amount text-3xl font-semibold flex flex-col-reverse md:flex-row gap-5 md:gap-0 justify-between items-start md:items-center border-t-2 border-b-2 py-6">
+              <div className="price flex flex-row gap-10 md:gap-0  md:flex-col md:ml-0">
                 <div className="price-title-price">
                   <h3 className="text-sm text-primary">PRICE</h3>
                   <span className="flex flex-row">
@@ -58,7 +63,7 @@ const Jumia = ({ product }) => {
                 </p>
               </div>
 
-              <div className="seller-name flex flex-col justify-end text-left  -ml-[10rem]   lg:-ml-20 font-normal">
+              <div className="seller-name flex flex-col justify-end text-left font-normal">
                 <p className="text-sm text-primary-orange font-medium m-0">
                   Seller Name
                 </p>
@@ -81,17 +86,24 @@ const Jumia = ({ product }) => {
           </div>
 
           <div className="price-change-container flex flex-col gap-5">
-            <div className="flex gap-5 flex-wrap">
+            <div className=" grid grid-cols-1 md:grid-cols-2  gap-5">
               <PriceInfoCard
                 value={currentPrice}
                 title="Current Price"
                 index={0}
+                image={<IoMdPricetags className="w-7 h-7" />}
               />
-              <PriceInfoCard value={oldPrice} title="Old Price" index={1} />
+              <PriceInfoCard
+                value={oldPrice}
+                title="Old Price"
+                index={1}
+                image={<GiPriceTag className="w-7 h-7" />}
+              />
               <PriceInfoCard
                 value={priceChangePercent}
                 title="Price change"
                 index={2}
+                image={<LuBadgePercent className="w-7 h-7" />}
               />
             </div>
           </div>

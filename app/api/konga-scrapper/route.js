@@ -97,6 +97,7 @@ export async function POST(req, res) {
       price,
       merchantName,
       merchantNumber,
+      url,
       linkType,
     };
 

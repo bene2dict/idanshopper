@@ -13,8 +13,16 @@ const Searchbar = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchPrompt, setSearchPrompt] = useState("");
 
-  const { isOpen, openModal, error, product, setProduct, setError } =
-    useContext(GlobalContext);
+  const {
+    isOpen,
+    openModal,
+    error,
+    product,
+    store,
+    setProduct,
+    setError,
+    setStore,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     if (product) {
@@ -53,20 +61,16 @@ const Searchbar = () => {
       // return toast.error("Failed to get any product");
     }
 
+    setStore(linkType);
+    console.log(store);
+
     setProduct(res);
     // toast.success("We have a product for you");
     console.log("Response data", res);
 
-    if (!res.ok) {
-      // toast("Failed to get product data");
-      setError(true);
-    }
-
     const data = await res;
     // toast("Got product data successfully");
     console.log("searchbar: ", data);
-
-    setProduct(res);
 
     if (data.length > 0) {
       setProduct(data);

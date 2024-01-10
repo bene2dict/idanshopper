@@ -2,7 +2,7 @@ import { GlobalContext } from "@/context/GlobalContext";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 
-const PriceInfoCard = ({ title, value, index }) => {
+const PriceInfoCard = ({ title, value, index, image }) => {
   const [discount, setDiscount] = useState(null);
   const iconSrc = false;
   // const title = false;
@@ -35,15 +35,16 @@ const PriceInfoCard = ({ title, value, index }) => {
         {title}
       </p>
 
-      <div className="flex gap-1 items-center">
-        <Image
-          src={iconSrc || "/assets/images/hero-1.svg"}
-          alt={title || "title"}
-          width={50}
-          height={50}
-        />
+      <div className="flex gap-2 items-center">
+        {image}
 
-        <p className="text-2xl font-bold text-secondary">{value}</p>
+        <p
+          className={`${
+            !value ? "text-lg" : "text-2xl  md:text-md lg:text-2xl"
+          }  font-bold text-secondary`}
+        >
+          {value || "Not available"}
+        </p>
       </div>
     </div>
   );

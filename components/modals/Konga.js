@@ -1,14 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PriceInfoCard from "../PriceInfoCard";
 import Image from "next/image";
 import { GlobalContext } from "@/context/GlobalContext";
+import Link from "next/link";
+
+import { LuBadgePercent } from "react-icons/lu";
+import { IoMdPricetags } from "react-icons/io";
+import { GiPriceTag } from "react-icons/gi";
 
 const Konga = ({ product }) => {
-  const { activeTabs } = useContext(GlobalContext);
+  const { activeTabs, calculateDiscount } = useContext(GlobalContext);
+  const [priceChangePercent, setPriceChangePercent] = useState(null);
 
   useEffect(() => {
     console.log(activeTabs);
-  }, [activeTabs]);
+    setPriceChangePercent(calculateDiscount(price, oldPrice));
+  }, [priceChangePercent]);
 
   const {
     picture,
@@ -20,15 +27,16 @@ const Konga = ({ product }) => {
     oldPrice,
     merchantName,
     merchantNumber,
+    url,
     linkType,
   } = product[0];
 
   return (
-    <article className={`konga-product my-3 slide-in-right`}>
+    <article className={`jumia-product slide-in-left my-3  `}>
       <div className="searched-container flex flex-col lg:flex-row gap-3">
-        <div className="product-image flex-grow lg:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
+        <div className="product-image flex-grow flex justify-center items-center lg:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
           <Image
-            src={"/assets/images/hero-1.svg"}
+            src={picture}
             alt={"title"}
             width={580}
             height={400}
@@ -38,33 +46,38 @@ const Konga = ({ product }) => {
 
         <div className="description-container lg:max-w-[50%] flex flex-col gap-5 m-0">
           <div className="flex flex-col gap-5">
-            <h1 className="text-4xl font-semibold">{title}</h1>
+            <h1 className="text-2xl lg:text-4xl font-semibold">{title}</h1>
 
             <span className="text-md font-normal text-primary-green">
-              {brandName} | Gotten from Konga
+              {brandName} |
+              <Link href={url} target="_blank" className="text-primary ml-1">
+                Buy product from Jumia
+              </Link>
             </span>
 
-            <div className="price-amount text-3xl font-semibold flex flex-row justify-between items-center border-t-2 border-b-2 py-6">
-              <div className="price flex flex-col ">
-                <h3 className="text-sm text-primary">PRICE</h3>
-                <span className="flex flex-row">
-                  <p className=" m-0">{priceSymbol} </p>
-                  <p>{price}</p>
-                </span>
+            <div className="price-amount text-3xl font-semibold flex flex-col-reverse md:flex-row gap-5 md:gap-0 justify-between items-center border-t-2 border-b-2 py-6">
+              <div className="price flex flex-row gap-10 md:gap-0  md:flex-col -ml-[3rem] md:ml-0">
+                <div className="price-title-price">
+                  <h3 className="text-sm text-primary">PRICE</h3>
+                  <span className="flex flex-row">
+                    <p className="price-symbol"> {priceSymbol} </p>
+                    <p>{price}</p>
+                  </span>
+                </div>
 
-                <p className="text-[16px] opacity-50 line-through">
-                  {priceSymbol + " " + oldPrice}
+                <p className="flex text-[16px] opacity-50 line-through items-end">
+                  {oldPrice && priceSymbol + "" + oldPrice}
                 </p>
               </div>
 
-              <div className="seller-name flex flex-col justify-end text-left  -ml-20 font-normal">
+              <div className="seller-name flex flex-col justify-end text-left  -ml-[10rem]   lg:-ml-20 font-normal">
                 <p className="text-sm text-primary-orange font-medium m-0">
-                  {" "}
                   Seller Name
                 </p>
-                <p className="text-xl text-gray-900 font-medium m-0">
-                  Onyx Shop Ltd
+                <p className="text-lg text-gray-700 font-medium m-0">
+                  {merchantName}
                 </p>
+                <span className="text-sm text-gray-600">{merchantNumber}</span>
               </div>
             </div>
           </div>
@@ -81,16 +94,29 @@ const Konga = ({ product }) => {
           </div>
 
           <div className="price-change-container flex flex-col gap-5">
-            <div className="flex gap-5 flex-wrap">
-              {["Current price", "Old price", "Discount(%)"].map((x, index) => (
+            <div className=" grid grid-cols-1 md:grid-cols-2  gap-5">
+              <PriceInfoCard
+                value={price}
+                title="Current Price"
+                index={0}
+                image={<IoMdPricetags className="w-7 h-7" />}
+              />
+              {oldPrice && (
                 <PriceInfoCard
-                  key={index}
-                  index={index}
-                  iconSrc="/assets/icons/price-tag.svg"
-                  value={500}
-                  title={x}
+                  value={oldPrice}
+                  title="Old Price"
+                  index={1}
+                  image={<GiPriceTag className="w-7 h-7" />}
                 />
-              ))}
+              )}
+              {priceChangePercent && (
+                <PriceInfoCard
+                  value={priceChangePercent + "%"}
+                  title="Price change"
+                  index={2}
+                  image={<LuBadgePercent className="w-7 h-7" />}
+                />
+              )}
             </div>
           </div>
 

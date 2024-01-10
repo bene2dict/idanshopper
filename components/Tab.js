@@ -12,7 +12,7 @@ const Tabs = () => {
         className={`${
           activeTabs === "jumia" ? "text-white" : "text-gray-700"
         } p-2 w-1/2 cursor-pointer z-10 relative`}
-        onClick={() => handleTabs("jumia")}
+        // onClick={() => handleTabs("jumia")}
       >
         Jumia
       </span>
@@ -20,7 +20,7 @@ const Tabs = () => {
         className={`${
           activeTabs === "konga" ? "text-white" : "text-gray-700"
         } w-1/2 p-2 cursor-pointer z-10 relative`}
-        onClick={() => handleTabs("konga")}
+        // onClick={() => handleTabs("konga")}
       >
         Konga
       </span>

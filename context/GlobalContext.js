@@ -14,6 +14,7 @@ const GlobalProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState(null);
   const [activeTabs, setActiveTabs] = useState("jumia");
+  const [store, setStore] = useState("jumia");
 
   const handleTabs = (tabName) => {
     setActiveTabs(tabName);
@@ -24,9 +25,28 @@ const GlobalProvider = ({ children }) => {
   };
 
   function calculateDiscount(currentPrice, slashedPrice) {
-    const discountAmount = slashedPrice - currentPrice;
-    const discountPercentage = (discountAmount / slashedPrice) * 100;
-    return discountPercentage;
+    if (slashedPrice === undefined) {
+      console.log("undefined slashed Price");
+      return false;
+    }
+
+    if (currentPrice === slashedPrice) {
+      console.log("No Price change");
+      return false;
+    }
+
+    if (currentPrice < slashedPrice) {
+      console.log("Price has been increased");
+      return false;
+    }
+
+    const newPrice = parseInt(currentPrice);
+    const oldPrice = parseInt(slashedPrice && slashedPrice);
+
+    const discountAmount = oldPrice - newPrice;
+    const discountPercentage = (discountAmount / oldPrice) * 100;
+    const discount = Math.floor(discountPercentage);
+    return discount;
   }
 
   const value = {
@@ -34,6 +54,7 @@ const GlobalProvider = ({ children }) => {
     isOpen,
     error,
     product,
+    store,
     activeTabs,
     setActiveTabs,
     handleTabs,
@@ -41,6 +62,7 @@ const GlobalProvider = ({ children }) => {
     setError,
     setIsOpen,
     setIsLoading,
+    setStore,
     openModal,
     calculateDiscount,
   };

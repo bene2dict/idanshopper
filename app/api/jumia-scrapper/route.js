@@ -38,7 +38,13 @@ export async function POST(req, res) {
       const imageElements = document.querySelectorAll(
         "div#imgs a img[data-src]"
       ); // Use the selector from `image`
-      return Array.from(imageElements).map((img) => img.dataset.src);
+      console.log(imageElements);
+
+      if (imageElements.length > 0) {
+        return Array.from(imageElements).map((img) => img.dataset.src);
+      } else {
+        return imageElements;
+      }
     });
 
     const textDivParent = parentDiv.find("div.col10");

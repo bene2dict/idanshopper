@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { GlobalContext } from "@/context/GlobalContext";
 import sendUrlToScraper from "@/lib/actions/localActions/sendUrlToScraper";
@@ -13,8 +13,14 @@ const Searchbar = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchPrompt, setSearchPrompt] = useState("");
 
-  const { openModal, error, product, setProduct, setError } =
+  const { isOpen, openModal, error, product, setProduct, setError } =
     useContext(GlobalContext);
+
+  useEffect(() => {
+    if (product) {
+      openModal();
+    }
+  }, [product]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,11 +66,14 @@ const Searchbar = () => {
     // toast("Got product data successfully");
     console.log("searchbar: ", data);
 
+    setProduct(res);
+
     if (data.length > 0) {
       setProduct(data);
+      console.log("Opening Modal ");
+      console.log(isOpen);
+      openModal();
     }
-
-    console.log(res.json());
   };
 
   console.log(product && product);

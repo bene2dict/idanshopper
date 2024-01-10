@@ -1,5 +1,5 @@
 import { GlobalContext } from "@/context/GlobalContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const Tabs = () => {
   const { error, activeTabs, handleTabs } = useContext(GlobalContext);
@@ -7,7 +7,7 @@ const Tabs = () => {
   console.log("active tab", activeTabs);
 
   return (
-    <div className="top-tab bg-slate-100 w-1/3 p-1 mx-auto flex flex-row justify-center items-center rounded-3xl text-center font-bold relative">
+    <div className="top-tab bg-slate-100 w-9/12 md:w-1/3 p-1 mx-auto flex flex-row justify-center items-center rounded-3xl text-center font-bold relative">
       <span
         className={`${
           activeTabs === "jumia" ? "text-white" : "text-gray-700"

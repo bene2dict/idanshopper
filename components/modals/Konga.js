@@ -3,12 +3,25 @@ import PriceInfoCard from "../PriceInfoCard";
 import Image from "next/image";
 import { GlobalContext } from "@/context/GlobalContext";
 
-const Konga = () => {
+const Konga = ({ product }) => {
   const { activeTabs } = useContext(GlobalContext);
 
   useEffect(() => {
     console.log(activeTabs);
   }, [activeTabs]);
+
+  const {
+    picture,
+    title,
+    productCode,
+    brandName,
+    priceSymbol,
+    price,
+    oldPrice,
+    merchantName,
+    merchantNumber,
+    linkType,
+  } = product[0];
 
   return (
     <article className={`konga-product my-3 slide-in-right`}>
@@ -25,23 +38,23 @@ const Konga = () => {
 
         <div className="description-container lg:max-w-[50%] flex flex-col gap-5 m-0">
           <div className="flex flex-col gap-5">
-            <h1 className="text-4xl font-semibold">
-              Sony PlayStation 5 Console - Standard Edition
-            </h1>
+            <h1 className="text-4xl font-semibold">{title}</h1>
 
             <span className="text-md font-normal text-primary-green">
-              Brand | Konga
+              {brandName} | Gotten from Konga
             </span>
 
             <div className="price-amount text-3xl font-semibold flex flex-row justify-between items-center border-t-2 border-b-2 py-6">
               <div className="price flex flex-col ">
                 <h3 className="text-sm text-primary">PRICE</h3>
                 <span className="flex flex-row">
-                  <p className=" m-0">$ </p>
-                  <p>5000</p>
+                  <p className=" m-0">{priceSymbol} </p>
+                  <p>{price}</p>
                 </span>
 
-                <p className="text-[16px] opacity-50 line-through">8000</p>
+                <p className="text-[16px] opacity-50 line-through">
+                  {priceSymbol + " " + oldPrice}
+                </p>
               </div>
 
               <div className="seller-name flex flex-col justify-end text-left  -ml-20 font-normal">

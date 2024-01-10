@@ -4,8 +4,9 @@ import * as cheerio from "cheerio";
 
 export async function POST(req, res) {
   const data = await req.json();
-  const { url } = data;
+  const { url, linkType } = data;
   console.log("Starting Scraping", url);
+  console.log("Link: ", linkType);
 
   let browser;
 
@@ -42,13 +43,19 @@ export async function POST(req, res) {
       .find("form div._31c33_NSdat div._71bb8_13C6j a span")
       .text();
 
-    const priceParentElement = textDivParent.find(
-      "div._3924b_1USC3 div._678e4_e6nqh"
-    );
+    const priceParentElement = textDivParent.find("div._3924b_1USC3 ");
 
-    const priceElement = textDivParent
+    const priceElement = priceParentElement
       .find("div._3924b_1USC3 div._678e4_e6nqh")
       .text();
+
+    const previousPrice = priceParentElement.find("div._10344_3PAla").text();
+
+    const slashPrice = previousPrice.split("₦");
+
+    const oldPrice = slashPrice[2];
+
+    console.log(oldPrice);
 
     const price = priceElement.split("₦")[1];
 
@@ -76,6 +83,7 @@ export async function POST(req, res) {
     console.log("brand name", brandName);
     console.log(priceSymbol);
     console.log("price", price);
+    console.log("Old price", oldPrice);
     console.log("merchant name", merchantName);
     console.log("merchant number", merchantNumber);
 
@@ -85,9 +93,11 @@ export async function POST(req, res) {
       productCode,
       brandName,
       priceSymbol,
+      oldPrice,
       price,
       merchantName,
       merchantNumber,
+      linkType,
     };
 
     console.log("items ", items);

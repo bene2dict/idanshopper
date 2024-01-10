@@ -4,8 +4,9 @@ import * as cheerio from "cheerio";
 
 export async function POST(req, res) {
   const data = await req.json();
-  const { url } = data;
+  const { url, linkType } = data;
   console.log("Starting Scraping", url);
+  console.log("Starting Scraping", linkType);
 
   let browser;
   try {
@@ -83,6 +84,8 @@ export async function POST(req, res) {
       currentPrice,
       oldPrice,
       priceChangePercent,
+      url,
+      linkType,
     };
 
     product.push(items);

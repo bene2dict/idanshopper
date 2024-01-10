@@ -14,12 +14,14 @@ const PriceInfoCard = ({ title, value, index }) => {
     setDiscount(res);
   }, []);
 
-  console.log(discount);
+  // console.log(discount);
 
-  console.log(index);
+  console.log(value);
   return (
     <div
-      className={`price-info_card flex-1 flex flex-col gap-2 border-l-[3px] rounded-10 bg-white-100 px-5 py-4`}
+      className={`price-info_card ${index !== 2 && "w-full"} ${
+        index === 2 && "w-auto"
+      } flex flex-col gap-2 border-l-[3px] rounded-10 bg-white-100 px-5 py-4`}
     >
       <p
         className={`text-sm font-semibold ${

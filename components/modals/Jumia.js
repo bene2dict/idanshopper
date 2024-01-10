@@ -2,17 +2,30 @@ import React, { useContext } from "react";
 import PriceInfoCard from "../PriceInfoCard";
 import Image from "next/image";
 import { GlobalContext } from "@/context/GlobalContext";
+import Link from "next/link";
 
-const Jumia = () => {
+const Jumia = ({ product }) => {
   const { activeTabs } = useContext(GlobalContext);
+
+  const {
+    title,
+    brand,
+    sellerName,
+    currentPrice,
+    oldPrice,
+    images,
+    priceChangePercent,
+    url,
+  } = product[0];
+  console.log("Title: ", title);
 
   console.log("Inside jumia: ", activeTabs);
   return (
     <article className={`jumia-product slide-in-left my-3  `}>
       <div className="searched-container flex flex-col lg:flex-row gap-3">
-        <div className="product-image flex-grow lg:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
+        <div className="product-image flex-grow flex justify-center items-center lg:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
           <Image
-            src={"/assets/images/hero-1.svg"}
+            src={images[0]}
             alt={"title"}
             width={580}
             height={400}
@@ -22,32 +35,35 @@ const Jumia = () => {
 
         <div className="description-container lg:max-w-[50%] flex flex-col gap-5 m-0">
           <div className="flex flex-col gap-5">
-            <h1 className="text-4xl font-semibold">
-              Sony PlayStation 5 Console - Standard Edition
-            </h1>
+            <h1 className="text-2xl lg:text-4xl font-semibold">{title}</h1>
 
             <span className="text-md font-normal text-primary-green">
-              Brand | Jumia
+              {brand} |
+              <Link href={url} target="_blank" className="text-primary ml-1">
+                Get product from Jumia
+              </Link>
             </span>
 
-            <div className="price-amount text-3xl font-semibold flex flex-row justify-between items-center border-t-2 border-b-2 py-6">
-              <div className="price flex flex-col ">
-                <h3 className="text-sm text-primary">PRICE</h3>
-                <span className="flex flex-row">
-                  <p className=" m-0">$ </p>
-                  <p>5000</p>
-                </span>
+            <div className="price-amount text-3xl font-semibold flex flex-col-reverse md:flex-row gap-5 md:gap-0 justify-between items-center border-t-2 border-b-2 py-6">
+              <div className="price flex flex-row gap-10 md:gap-0  md:flex-col -ml-[3rem] md:ml-0">
+                <div className="price-title-price">
+                  <h3 className="text-sm text-primary">PRICE</h3>
+                  <span className="flex flex-row">
+                    <p>{currentPrice}</p>
+                  </span>
+                </div>
 
-                <p className="text-[16px] opacity-50 line-through">8000</p>
+                <p className="flex text-[16px] opacity-50 line-through items-end">
+                  {oldPrice}
+                </p>
               </div>
 
-              <div className="seller-name flex flex-col justify-end text-left  -ml-20 font-normal">
+              <div className="seller-name flex flex-col justify-end text-left  -ml-[10rem]   lg:-ml-20 font-normal">
                 <p className="text-sm text-primary-orange font-medium m-0">
-                  {" "}
                   Seller Name
                 </p>
                 <p className="text-xl text-gray-900 font-medium m-0">
-                  Onyx Shop Ltd
+                  {sellerName}
                 </p>
               </div>
             </div>
@@ -66,15 +82,17 @@ const Jumia = () => {
 
           <div className="price-change-container flex flex-col gap-5">
             <div className="flex gap-5 flex-wrap">
-              {["Current price", "Old price", "Discount(%)"].map((x, index) => (
-                <PriceInfoCard
-                  key={index}
-                  index={index}
-                  iconSrc="/assets/icons/price-tag.svg"
-                  value={500}
-                  title={x}
-                />
-              ))}
+              <PriceInfoCard
+                value={currentPrice}
+                title="Current Price"
+                index={0}
+              />
+              <PriceInfoCard value={oldPrice} title="Old Price" index={1} />
+              <PriceInfoCard
+                value={priceChangePercent}
+                title="Price change"
+                index={2}
+              />
             </div>
           </div>
 

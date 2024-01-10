@@ -12,7 +12,7 @@ const GlobalProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const [activeTabs, setActiveTabs] = useState("jumia");
 
   const handleTabs = (tabName) => {

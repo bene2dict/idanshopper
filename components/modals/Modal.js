@@ -1,17 +1,15 @@
 "use client";
 
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
-import { GlobalContext } from "@/context/GlobalContext";
 
 const Modal = () => {
   let [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState("");
 
-  const { openModal } = useContext(GlobalContext);
-
+  const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
   return (

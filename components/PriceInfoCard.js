@@ -1,3 +1,5 @@
+"use client";
+
 import { GlobalContext } from "@/context/GlobalContext";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";

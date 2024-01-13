@@ -20,7 +20,7 @@ const Jumia = ({ product }) => {
     images,
     priceChangePercent,
     url,
-  } = product[0];
+  } = product && product[0];
   console.log("Title: ", title);
   console.log(images.length);
 

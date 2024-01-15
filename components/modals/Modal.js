@@ -12,6 +12,13 @@ const Modal = () => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
+  const handleTrack = () => {
+    // submit email
+    // add email to product
+    // send product to database
+    // redirect to product page
+  };
+
   return (
     <>
       <button

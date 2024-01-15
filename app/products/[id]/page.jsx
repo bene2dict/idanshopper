@@ -1,207 +1,112 @@
-// import Modal from "@/components/Modal";
-import Modal from "@/components/modals/Modal";
-import PriceInfoCard from "@/components/PriceInfoCard";
-import ProductCard from "@/components/ProductCard";
+"use client";
+
+import React, { useContext } from "react";
+import PriceInfoCard from "../../../components/PriceInfoCard";
 import Image from "next/image";
+import { GlobalContext } from "@/context/GlobalContext";
 import Link from "next/link";
-// import { redirect } from "next/navigation";
 
-const ProductDetails = async () => {
-  // const product = await getProductById(id);
+import { LuBadgePercent } from "react-icons/lu";
+import { IoMdPricetags } from "react-icons/io";
+import { GiPriceTag } from "react-icons/gi";
 
-  // if (!product) redirect("/");
-
-  // const similarProducts = await getSimilarProducts(id);
-  const product = false;
+const ProductDetails = () => {
+  const { activeTabs } = useContext(GlobalContext);
 
   return (
-    <div className="product-container flex flex-col gap-16 flex-wrap px-6 md:px-20 py-24">
-      <div className="flex gap-28 xl:flex-row flex-col">
-        <div className="product-image flex-grow xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
+    <article className={`jumia-product slide-in-left my-3  `}>
+      <div className="searched-container flex flex-col xl:flex-row gap-3">
+        <div className="product-image flex-grow flex justify-center items-center xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
           <Image
-            src={product.image || "/assets/images/hero-1.svg"}
-            alt={product.title || "title"}
+            // src={"images"}
+            alt={"title"}
             width={580}
             height={400}
             className="mx-auto"
           />
         </div>
 
-        <div className="flex-1 flex flex-col">
-          <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
-            <div className="flex flex-col gap-3">
-              <p className="text-[28px] text-secondary font-semibold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
-                obcaecati minima porro sunt quis neque, laboriosam hic omnis
-                quae magni!
-                {/* {product.title} */}
-              </p>
+        <div className="description-container xl:max-w-[50%] flex flex-col gap-5 m-0">
+          <div className="flex flex-col gap-5">
+            <h1 className="text-2xl lg:text-4xl font-semibold">{"title"}</h1>
 
-              <Link
-                href=""
-                // href={product.url}
-                target="_blank"
-                className="text-base text-black opacity-50"
-              >
-                Visit Product
+            <span className="text-md font-normal text-primary-green">
+              {"brand"} |
+              <Link href={"url"} target="_blank" className="text-primary ml-1">
+                Buy product from Jumia
               </Link>
-            </div>
+            </span>
 
-            <div className="flex items-center gap-3">
-              <div className="product-hearts flex items-center gap-2 px-3 py-2 bg-[#FFF0F0] rounded-10">
-                <Image
-                  src="/assets/icons/red-heart.svg"
-                  alt="heart"
-                  width={20}
-                  height={20}
-                />
+            <div className="price-amount text-3xl font-semibold flex flex-col-reverse md:flex-row gap-5 md:gap-0 justify-between items-start md:items-center border-t-2 border-b-2 py-6">
+              <div className="price flex flex-row gap-10 md:gap-0  md:flex-col md:ml-0">
+                <div className="price-title-price">
+                  <h3 className="text-sm text-primary">PRICE</h3>
+                  <span className="flex flex-row">
+                    <p>{"currentPrice"}</p>
+                  </span>
+                </div>
 
-                <p className="text-base font-semibold text-[#D46F77]">
-                  {product.reviewsCount}
+                <p className="flex text-[16px] opacity-50 line-through items-end">
+                  {"oldPrice"}
                 </p>
               </div>
 
-              <div className="p-2 bg-white-200 rounded-10">
-                <Image
-                  src="/assets/icons/bookmark.svg"
-                  alt="bookmark"
-                  width={20}
-                  height={20}
-                />
-              </div>
-
-              <div className="p-2 bg-white-200 rounded-10">
-                <Image
-                  src="/assets/icons/share.svg"
-                  alt="share"
-                  width={20}
-                  height={20}
-                />
+              <div className="seller-name flex flex-col justify-end text-left font-normal">
+                <p className="text-sm text-primary-orange font-medium m-0">
+                  Seller Name
+                </p>
+                <p className="text-xl text-gray-900 font-medium m-0">
+                  {"sellerName"}
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="product-info flex items-center flex-wrap gap-10 py-6 border-y border-y-[#E4E4E4]">
-            <div className="flex flex-col gap-2">
-              <p className="text-[34px] text-secondary font-bold">
-                5000
-                {/* {product.currency} {formatNumber(product.currentPrice)} */}
-              </p>
-              <p className="text-[21px] text-black opacity-50 line-through">
-                5000
-                {/* {product.currency} {formatNumber(product.originalPrice)} */}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <div className="flex gap-3">
-                <div className="product-stars flex items-center gap-2 px-3 py-2 bg-[#FBF3EA] rounded-[27px]">
-                  <Image
-                    src="/assets/icons/star.svg"
-                    alt="star"
-                    width={16}
-                    height={16}
-                  />
-                  <p className="text-sm text-primary-orange font-semibold">
-                    {product.stars || "25"}
-                  </p>
-                </div>
-
-                <div className="product-reviews flex items-center gap-2 px-3 py-2 bg-white-200 rounded-[27px]">
-                  <Image
-                    src="/assets/icons/comment.svg"
-                    alt="comment"
-                    width={16}
-                    height={16}
-                  />
-                  <p className="text-sm text-secondary font-semibold">
-                    {product.reviewsCount} Reviews
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-sm text-black opacity-50">
-                <span className="text-primary-green font-semibold">93% </span>{" "}
-                of buyers have recommeded this.
-              </p>
-            </div>
+          <div className="description">
+            <h1 className="text-2xl font-semibold">Website Tips</h1>
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor,
+              sit. Mollitia, libero temporibus assumenda nostrum error minus
+              architecto magni voluptas odit voluptatem. Vitae consequuntur nam
+              neque non at commodi repellat dolore necessitatibus, a accusantium
+              magnam tempora, laborum maiores facere? Est.
+            </span>
           </div>
 
-          <div className="my-7 flex flex-col gap-5">
-            <div className="flex gap-5 flex-wrap">
+          <div className="price-change-container flex flex-col gap-5">
+            <div className=" grid grid-cols-1 md:grid-cols-2  gap-5">
               <PriceInfoCard
+                value={"currentPrice"}
                 title="Current Price"
-                iconSrc="/assets/icons/price-tag.svg"
-                value={500}
-                // value={`${product.currency} ${formatNumber(product.currentPrice)}`}
+                index={0}
+                image={<IoMdPricetags className="w-7 h-7" />}
               />
               <PriceInfoCard
-                title="Average Price"
-                iconSrc="/assets/icons/chart.svg"
-                value={500}
-                // value={`${product.currency} ${formatNumber(product.averagePrice)}`}
+                value={"oldPrice"}
+                title="Old Price"
+                index={1}
+                image={<GiPriceTag className="w-7 h-7" />}
               />
               <PriceInfoCard
-                title="Highest Price"
-                iconSrc="/assets/icons/arrow-up.svg"
-                value={500}
-                // value={`${product.currency} ${formatNumber(product.highestPrice)}`}
-              />
-              <PriceInfoCard
-                title="Lowest Price"
-                iconSrc="/assets/icons/arrow-down.svg"
-                value={500}
-                // value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
+                value={"priceChangePercent"}
+                title="Price change"
+                index={2}
+                image={<LuBadgePercent className="w-7 h-7" />}
               />
             </div>
           </div>
 
-          <Modal />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-16">
-        <div className="flex flex-col gap-5">
-          <h3 className="text-2xl text-secondary font-semibold">
-            Product Description
-          </h3>
-
-          <div className="flex flex-col gap-4">
-            {/* {product?.description?.split('\n')} */}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-            possimus quidem magni, ea aut adipisci laborum assumenda voluptate.
-            Temporibus est placeat iure voluptates in rerum nulla autem, eveniet
-            laborum perspiciatis esse deserunt ab similique totam, excepturi
-            aspernatur, dolorem aut. Modi.
-          </div>
-        </div>
-
-        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px] py-4 px-4 bg-secondary hover:bg-opacity-70 rounded-[30px] text-white text-lg font-semibold ">
-          <Image
-            src="/assets/icons/bag.svg"
-            alt="check"
-            width={22}
-            height={22}
-          />
-
-          <Link href="/" className="text-base text-white">
-            Buy Now
+          <Link href="" className="buy-button">
+            <button
+              type="submit"
+              className="searchbar-btn w-full bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Buy Now
+            </button>
           </Link>
-        </button>
-      </div>
-
-      {/* {similarProducts && similarProducts?.length > 0 && (
-        <div className="py-14 flex flex-col gap-2 w-full">
-          <p className="section-text">Similar Products</p>
-
-          <div className="flex flex-wrap gap-10 mt-7 w-full">
-            {similarProducts.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
         </div>
-      )} */}
-    </div>
+      </div>
+    </article>
   );
 };
 

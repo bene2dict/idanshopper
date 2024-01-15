@@ -75,7 +75,7 @@ const SearchedModal = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="dialog-content p-6  bg-white inline-block w-full  my-8 overflow-hidden text-left align-middle transition-all transform  shadow-xl rounded-2xl">
+              <div className="dialog-content p-6  bg-white inline-block w-full lg:w-[80vw]  my-8 overflow-hidden text-left align-middle transition-all transform  shadow-xl rounded-2xl">
                 <Tabs />
                 <section className="main-searched-product relative transition-transform duration-500 ease-in-out transform">
                   {activeTabs === "jumia" && <Jumia product={product} />}

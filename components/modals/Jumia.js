@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LuBadgePercent } from "react-icons/lu";
 import { IoMdPricetags } from "react-icons/io";
 import { GiPriceTag } from "react-icons/gi";
+import Modal from "./Modal";
 
 const Jumia = ({ product }) => {
   const { activeTabs } = useContext(GlobalContext);
@@ -108,14 +109,7 @@ const Jumia = ({ product }) => {
             </div>
           </div>
 
-          <div className="track-button">
-            <button
-              type="submit"
-              className="searchbar-btn w-full bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Track
-            </button>
-          </div>
+          <Modal />
         </div>
       </div>
     </article>

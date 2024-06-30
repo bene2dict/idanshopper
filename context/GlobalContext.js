@@ -15,6 +15,7 @@ const GlobalProvider = ({ children }) => {
   const [product, setProduct] = useState(null);
   const [activeTabs, setActiveTabs] = useState("jumia");
   const [store, setStore] = useState("jumia");
+  const [email, setEmail] = useState("");
 
   const handleTabs = (tabName) => {
     setActiveTabs(tabName);
@@ -56,6 +57,7 @@ const GlobalProvider = ({ children }) => {
     product,
     store,
     activeTabs,
+    email,
     setActiveTabs,
     handleTabs,
     setProduct,
@@ -63,6 +65,7 @@ const GlobalProvider = ({ children }) => {
     setIsOpen,
     setIsLoading,
     setStore,
+    setEmail,
     openModal,
     calculateDiscount,
   };

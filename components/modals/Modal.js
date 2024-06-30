@@ -1,19 +1,38 @@
+
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
+import { GlobalContext } from "@/context/GlobalContext";
 
 const Modal = () => {
   let [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [email, setEmail] = useState("");
+  
+  const {
+    email,
+    setEmail
+  } = useContext(GlobalContext);
 
   const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const closeModal = (e) => {
+    e.preventDefault();
+    setIsOpen(false);
+  }
+  
 
   const handleTrack = () => {
-    // submit email
+    e.preventDefault();
+
+  // submit email
+
+    if(email != "") {
+      console.log("Email", email);
+      setEmail(email);
+    }
+
+    
     // add email to product
     // send product to database
     // redirect to product page
@@ -26,13 +45,13 @@ const Modal = () => {
         className="btn  px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
         onClick={openModal}
       >
-        Track
+        Track Product
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          onClose={closeModal}
+          onClose={handleTrack}
           className="dialog-container fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-60"
         >
           <div className="min-h-screen px-4 text-center">
@@ -123,6 +142,7 @@ const Modal = () => {
                   <button
                     type="submit"
                     className="dialog-btn px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
+                    onClick={closeModal}
                   >
                     {isSubmitting ? "Submitting..." : "Track"}
                   </button>

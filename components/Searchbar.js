@@ -14,6 +14,7 @@ const Searchbar = () => {
   const [searchPrompt, setSearchPrompt] = useState("");
 
   const {
+    email,
     isOpen,
     openModal,
     error,
@@ -24,11 +25,40 @@ const Searchbar = () => {
     setStore,
   } = useContext(GlobalContext);
 
+  console.log(email);
+
   useEffect(() => {
     if (product) {
       openModal();
     }
   }, [product]);
+
+  const handleRes = (res) => {
+    console.log("Res gotten", res);
+    // setStore("Link Type", res.linkType);
+    // console.log("Store Searched", store);
+
+
+    setProduct(res);
+    // toast.success("We have a product for you");
+    console.log("Response data", res);
+  }
+
+  const checkGottenProduct = (res) => {
+    if(!res) {
+      alert("Failed !!!")
+    }
+
+    
+      const data = res
+      setProduct(data);
+      console.log("Opening Modal ");
+      console.log(isOpen);
+      openModal();
+    
+   
+    
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +66,7 @@ const Searchbar = () => {
     const linkType = checkLink(searchPrompt);
 
     // console.log(linkType);
-
+    setIsLoading(true)
     console.log("loading", isLoading);
     const response = await fetch(`/api/validate-url/`, {
       method: "POST",
@@ -59,26 +89,22 @@ const Searchbar = () => {
 
     if (!res) {
       // return toast.error("Failed to get any product");
-    }
+      console.log("Res has an issue");
+    } 
 
-    setStore(linkType);
-    console.log(store);
+    setIsLoading(false);
 
-    setProduct(res);
-    // toast.success("We have a product for you");
-    console.log("Response data", res);
+    handleRes(res);
+      
+      
+    
 
-    const data = await res;
-    // toast("Got product data successfully");
-    console.log("searchbar: ", data);
-
-    if (data.length > 0) {
-      setProduct(data);
-      console.log("Opening Modal ");
-      console.log(isOpen);
-      openModal();
-    }
+    
+    checkGottenProduct(res);
+    
   };
+
+
 
   console.log(product && product);
 
@@ -102,7 +128,7 @@ const Searchbar = () => {
         </button>
       </form>
 
-      <SearchedModal product={product && product} />
+      {product ?  <SearchedModal product={product && product} /> : ""}
     </>
   );
 };

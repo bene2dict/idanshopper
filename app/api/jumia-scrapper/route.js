@@ -73,12 +73,12 @@ export async function POST(req, res) {
 
     const product = [];
 
-    console.log("images", images);
-    console.log("title", title);
-    console.log("brand name", brand);
-    console.log("current Price", currentPrice);
-    console.log("Old Price", oldPrice);
-    console.log("price percentage change", priceChangePercent);
+    // console.log("images", images);
+    // console.log("title", title);
+    // console.log("brand name", brand);
+    // console.log("current Price", currentPrice);
+    // console.log("Old Price", oldPrice);
+    // console.log("price percentage change", priceChangePercent);
 
     // product.push(images);
 
@@ -96,7 +96,7 @@ export async function POST(req, res) {
 
     product.push(items);
 
-    console.log("items ", items);
+    // console.log("items ", items);
 
     return NextResponse.json(product);
   } catch (error) {

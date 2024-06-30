@@ -8,6 +8,8 @@ import Link from "next/link";
 const PreviewProduct = async () => {
   const product = false;
 
+ 
+
   return (
     <div className="product-container flex flex-col gap-16 flex-wrap px-6 md:px-20 py-24">
       <div className="flex gap-28 xl:flex-row flex-col">
@@ -178,9 +180,9 @@ const PreviewProduct = async () => {
             height={22}
           />
 
-          <Link href="/" className="text-base text-white">
-            Buy Now
-          </Link>
+          {/* <Link href="/" className="text-base text-white"> */}
+            Track Product
+          {/* </Link> */}
         </button>
       </div>
 

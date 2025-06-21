@@ -1,14 +1,13 @@
-import isValidUrl from "@/lib/actions/localActions/isValidUrl";
+import isValidUrl from "@/helper/isValidUrl";
 import { NextRequest, NextResponse } from "next/server";
-import * as cheerio from "cheerio";
 
-export async function POST(req, res) {
-  const data = await req.json();
+export async function POST(NextRequest) {
+  const data = await NextRequest.json();
   const { url } = data;
   try {
-    const isValidURL = isValidUrl(url);
+    const isValid = isValidUrl(url);
 
-    if (!isValidURL) {
+    if (!isValid) {
     } else {
       return NextResponse.json({
         success: true,

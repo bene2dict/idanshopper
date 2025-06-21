@@ -7,7 +7,7 @@ const ProductCard = () => {
     <Link
       href="/products/4"
       // href={`/products/${product._id}`}
-      className="product-card w-full flex-1 flex flex-col gap-4 rounded-md shadow-sm hover:shadow-md"
+      className="product-card w-full flex-1 flex flex-col gap-4 rounded-lg shadow-sm hover:shadow-lg"
     >
       <div className="product-card_img-container p-5">
         <div className="product-card_img-container_inner">

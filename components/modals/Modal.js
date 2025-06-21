@@ -1,48 +1,72 @@
-
 "use client";
 
 import { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { GlobalContext } from "@/context/GlobalContext";
+import { toast } from "react-toastify";
 
 const Modal = () => {
   let [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const {
-    email,
-    setEmail
-  } = useContext(GlobalContext);
+  const [email, setEmail] = useState("");
+
+  const { product } = useContext(GlobalContext);
 
   const openModal = () => setIsOpen(true);
-  const closeModal = (e) => {
-    e.preventDefault();
+
+  const closeModal = () => {
     setIsOpen(false);
-  }
-  
+  };
 
-  const handleTrack = () => {
+  const doNothing = () => {
+    console.log("nothing");
+  };
+
+  console.log(email);
+
+  const handleTrack = async (e) => {
     e.preventDefault();
 
-  // submit email
-
-    if(email != "") {
-      console.log("Email", email);
-      setEmail(email);
+    if (!email || email === "") {
+      alert("Cannot send undefined");
+      return;
     }
 
-    
-    // add email to product
-    // send product to database
-    // redirect to product page
+    try {
+      setIsSubmitting(true);
+
+      const response = await fetch("/api/mailer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, product }),
+      });
+
+      console.log(response);
+
+      if (!response.ok) {
+        toast.error("Failed to send tracking request. Please try again.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      toast.success("Product tracking request sent successfully!");
+      setIsSubmitting(false);
+      setIsOpen(false);
+    } catch (error) {
+      console.log("Error", error);
+      setIsSubmitting(false);
+      toast.error("Something went wrong.");
+    }
   };
 
   return (
     <>
       <button
         type="button"
-        className="btn  px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
+        className="btn w-1/2  px-5 py-3 cursor-pointer text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
         onClick={openModal}
       >
         Track Product
@@ -51,7 +75,7 @@ const Modal = () => {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          onClose={handleTrack}
+          onClose={closeModal}
           className="dialog-container fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-60"
         >
           <div className="min-h-screen px-4 text-center">
@@ -139,13 +163,13 @@ const Modal = () => {
                     />
                   </div>
 
-                  <button
-                    type="submit"
-                    className="dialog-btn px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
-                    onClick={closeModal}
+                  <div
+                    // type="submit"
+                    className="dialog-btn cursor-pointer px-5 py-3 text-center text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8"
+                    onClick={handleTrack}
                   >
                     {isSubmitting ? "Submitting..." : "Track"}
-                  </button>
+                  </div>
                 </form>
               </div>
             </Transition.Child>

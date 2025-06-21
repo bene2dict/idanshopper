@@ -1,12 +1,12 @@
 import HeroCarousel from "@/components/HeroCarousel";
 import Searchbar from "@/components/Searchbar";
 import Image from "next/image";
-// import { getAllProducts } from "@/lib/actions";
+
 import ProductCard from "@/components/ProductCard";
-import ErrorModal from "@/components/modals/ErrorModal";
+
+import right_arrow from "@/public/assets/icons/arrow-right.svg"
 
 const Home = async () => {
-  // const allProducts = await getAllProducts();
 
   return (
     <>
@@ -16,7 +16,7 @@ const Home = async () => {
             <p className="small-text flex gap-2 text-sm font-medium text-primary">
               Smart Shopping Starts Here:
               <Image
-                src="/assets/icons/arrow-right.svg"
+                src={right_arrow}
                 alt="arrow-right"
                 width={16}
                 height={16}
@@ -40,46 +40,8 @@ const Home = async () => {
         </div>
       </section>
 
-      <section className="trending-section flex flex-col gap-10 ">
-        <h2 className="section-text text-secondary text-[32px] font-semibold">
-          Trending
-        </h2>
+      
 
-        <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {/* {allProducts?.map((product) => ( */}
-          <ProductCard
-          // key={product._id}
-          // product={product}
-          />
-          <ProductCard
-          // key={product._id}
-          // product={product}
-          />
-          <ProductCard
-          // key={product._id}
-          // product={product}
-          />
-          <ProductCard
-          // key={product._id}
-          // product={product}
-          />
-          <ProductCard
-          // key={product._id}
-          // product={product}
-          />
-          <ProductCard
-          // key={product._id}
-          // product={product}
-          />
-          <ProductCard
-          // key={product._id}
-          // product={product}
-          />
-          {/* ))} */}
-        </div>
-
-        <ErrorModal />
-      </section>
     </>
   );
 };

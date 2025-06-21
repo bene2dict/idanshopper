@@ -172,18 +172,6 @@ const PreviewProduct = async () => {
           </div>
         </div>
 
-        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px] py-4 px-4 bg-secondary hover:bg-opacity-70 rounded-[30px] text-white text-lg font-semibold ">
-          <Image
-            src="/assets/icons/bag.svg"
-            alt="check"
-            width={22}
-            height={22}
-          />
-
-          {/* <Link href="/" className="text-base text-white"> */}
-            Track Product
-          {/* </Link> */}
-        </button>
       </div>
 
       {/* {similarProducts && similarProducts?.length > 0 && (

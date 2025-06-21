@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+import ToastifyProvider from "@/context/ToastContext";
 import SettingsProvider from "@/context/SettingsContext";
 import GlobalProvider from "@/context/GlobalContext";
 
@@ -20,7 +21,9 @@ export default function RootLayout({ children }) {
         <Navbar />
         <GlobalProvider>
           <SettingsProvider>
-            <div className="flex-1 px-6 md:px-20 py-24">{children}</div>
+            <div className="flex-1 px-6 md:px-20 py-24">
+              <ToastifyProvider  autoClose={30000} />
+              {children}</div>
           </SettingsProvider>
         </GlobalProvider>
         <Footer />

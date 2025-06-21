@@ -7,7 +7,6 @@ import { useContext, useEffect, useState } from "react";
 const PriceInfoCard = ({ title, value, index, image }) => {
   const [discount, setDiscount] = useState(null);
   const iconSrc = false;
-  // const title = false;
 
   const { calculateDiscount } = useContext(GlobalContext);
 
@@ -16,7 +15,6 @@ const PriceInfoCard = ({ title, value, index, image }) => {
     setDiscount(res);
   }, []);
 
-  // console.log(discount);
 
   console.log(value);
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import PriceInfoCard from "../PriceInfoCard";
 import Image from "next/image";
 import { GlobalContext } from "@/context/GlobalContext";
@@ -7,31 +7,21 @@ import Link from "next/link";
 import { LuBadgePercent } from "react-icons/lu";
 import { IoMdPricetags } from "react-icons/io";
 import { GiPriceTag } from "react-icons/gi";
+
 import Modal from "./Modal";
 
-const Jumia = ({ product }) => {
-  const { activeTabs } = useContext(GlobalContext);
+const Jumia = ({product}) => {
 
-  const {
-    title,
-    brand,
-    sellerName,
-    currentPrice,
-    oldPrice,
-    images,
-    priceChangePercent,
-    url,
-  } = product && product[0];
-  console.log("Title: ", title);
-  console.log(images.length);
 
-  console.log("Inside jumia: ", activeTabs);
+
+  console.log("product gotten", product);
+
   return (
     <article className={`jumia-product slide-in-left my-3  `}>
       <div className="searched-container flex flex-col xl:flex-row gap-3">
         <div className="product-image flex-grow flex justify-center items-center xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
           <Image
-            src={images.length > 0 ? images[0] : images}
+            src={product && product.image}
             alt={"title"}
             width={580}
             height={400}
@@ -41,11 +31,15 @@ const Jumia = ({ product }) => {
 
         <div className="description-container xl:max-w-[50%] flex flex-col gap-5 m-0">
           <div className="flex flex-col gap-5">
-            <h1 className="text-2xl lg:text-4xl font-semibold">{title}</h1>
+            <h1 className="text-2xl lg:text-4xl font-semibold">{product.title}</h1>
 
             <span className="text-md font-normal text-primary-green">
-              {brand} |
-              <Link href={url} target="_blank" className="text-primary ml-1">
+              {product.brand} |
+              <Link
+                href={product ? product.url : "#"}
+                target="_blank"
+                className="text-primary ml-1"
+              >
                 Buy product from Jumia
               </Link>
             </span>
@@ -55,12 +49,12 @@ const Jumia = ({ product }) => {
                 <div className="price-title-price">
                   <h3 className="text-sm text-primary">PRICE</h3>
                   <span className="flex flex-row">
-                    <p>{currentPrice}</p>
+                    <p>{product.currentPrice}</p>
                   </span>
                 </div>
 
                 <p className="flex text-[16px] opacity-50 line-through items-end">
-                  {oldPrice}
+                  {product.oldPrice}
                 </p>
               </div>
 
@@ -69,7 +63,7 @@ const Jumia = ({ product }) => {
                   Seller Name
                 </p>
                 <p className="text-xl text-gray-900 font-medium m-0">
-                  {sellerName}
+                  {product.sellerName}
                 </p>
               </div>
             </div>
@@ -89,19 +83,19 @@ const Jumia = ({ product }) => {
           <div className="price-change-container flex flex-col gap-5">
             <div className=" grid grid-cols-1 md:grid-cols-2  gap-5">
               <PriceInfoCard
-                value={currentPrice}
+                value={product.currentPrice}
                 title="Current Price"
                 index={0}
                 image={<IoMdPricetags className="w-7 h-7" />}
               />
               <PriceInfoCard
-                value={oldPrice}
+                value={product.oldPrice}
                 title="Old Price"
                 index={1}
                 image={<GiPriceTag className="w-7 h-7" />}
               />
               <PriceInfoCard
-                value={priceChangePercent}
+                value={product.priceChangePercent}
                 title="Price change"
                 index={2}
                 image={<LuBadgePercent className="w-7 h-7" />}

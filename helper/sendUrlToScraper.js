@@ -5,7 +5,7 @@ export default async function sendUrlToScraper(url) {
 
 
   try {
-    const response = await fetch(`http://localhost:8000/scrape`, {
+    const response = await fetch(`https://idanshopper-backend.onrender.com/scrape`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
